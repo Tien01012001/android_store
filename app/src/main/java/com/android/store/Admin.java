@@ -13,9 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.store.fragment.CartFragment;
-import com.android.store.fragment.DetailProductFragment;
 import com.android.store.fragment.HistoryFragment;
-import com.android.store.fragment.HistoryFragmentAdmin;
 import com.android.store.fragment.OrderInfoFragment;
 import com.android.store.fragment.ProductFragment;
 import com.android.store.fragment.ProductFragmentAdmin;
@@ -72,11 +70,12 @@ public class Admin extends AppCompatActivity {
     private void setDataBotNavHome() {
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_product, R.drawable.ic_baseline_home_24, R.color.teal_200);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Đơn hàng", R.drawable.ic_baseline_history_24, R.color.yellow);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Thoát", R.drawable.ic_baseline_login_24, R.color.yellow);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Don Hang", R.drawable.ic_baseline_history_24, R.color.teal_200);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.log_out, R.drawable.ic_baseline_login_24, R.color.yellow);
         ahBotNavAdmin.addItem(item1);
         ahBotNavAdmin.addItem(item2);
         ahBotNavAdmin.addItem(item3);
+
 
 
 
@@ -92,11 +91,13 @@ public class Admin extends AppCompatActivity {
                     case 0:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.contet_frame_admin, new ProductFragmentAdmin());
+
                         fragmentTransaction.commit();
                         break;
                     case 1:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.contet_frame_admin, new HistoryFragmentAdmin());
+                        fragmentTransaction.replace(R.id.contet_frame_admin, new HistoryFragment());
+
                         fragmentTransaction.commit();
                         break;
                     case 2:
@@ -113,22 +114,16 @@ public class Admin extends AppCompatActivity {
     }
 
 
-    public void toDetailProductFragment(Product product){
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.contet_frame_admin, new DetailProductFragment(product,listCartProduct));
-        fragmentTransaction.commit();
-    }
-
-    public void toOrderInfoFragment(Order orderInfo){
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.contet_frame_admin, new OrderInfoFragment(orderInfo));
-        fragmentTransaction.addToBackStack(OrderInfoFragment.TAG);
-        fragmentTransaction.commit();
-    }
     public void onClick_AddProduct(View view)
     {
         Intent intent = new Intent(Admin.this, AdminProduct.class);
         startActivity(intent);
+    }
+    public void toOrderInfoFragment(Order orderInfo){
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.contet_frame, new OrderInfoFragment(orderInfo));
+        fragmentTransaction.addToBackStack(OrderInfoFragment.TAG);
+        fragmentTransaction.commit();
     }
 
 }

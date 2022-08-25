@@ -69,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_product, R.drawable.ic_baseline_home_24, R.color.teal_200);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_cart, R.drawable.ic_baseline_add_shopping_cart_24, R.color.gray);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_history, R.drawable.ic_baseline_history_24, R.color.yellow);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem("login", R.drawable.ic_baseline_account_box_24, R.color.teal_200);
+
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("login", R.drawable.ic_baseline_account_box_24, R.color.teal_200);
 
         ahBotNavHome.addItem(item1);
         ahBotNavHome.addItem(item2);
         ahBotNavHome.addItem(item3);
-        ahBotNavHome.addItem(item4);
+
 
         ahBotNavHome.setColored(false);
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
 
-                switch (position) {
+                switch (position){
                     case 0:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.contet_frame, new ProductFragment());
@@ -97,12 +97,8 @@ public class MainActivity extends AppCompatActivity {
                         fragmentTransaction.replace(R.id.contet_frame, new CartFragment(listCartProduct));
                         fragmentTransaction.commit();
                         break;
+
                     case 2:
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.contet_frame, new HistoryFragment());
-                        fragmentTransaction.commit();
-                        break;
-                    case 3:
                         Intent intent = new Intent(MainActivity.this, Login.class);
                         startActivity(intent);
                         break;
@@ -129,12 +125,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void toOrderInfoFragment(Order orderInfo){
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.contet_frame, new OrderInfoFragment(orderInfo));
-        fragmentTransaction.addToBackStack(OrderInfoFragment.TAG);
-        fragmentTransaction.commit();
-    }
+
 
     public void addToListCartProdct(Product product){
         listCartProduct.add(product);

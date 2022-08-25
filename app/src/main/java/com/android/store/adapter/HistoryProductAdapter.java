@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.android.store.Admin;
 import com.android.store.MainActivity;
 import com.android.store.R;
 import com.android.store.model.DetailOrder;
@@ -25,9 +26,9 @@ public class HistoryProductAdapter extends RecyclerView.Adapter<HistoryProductAd
     private List<DetailOrder> listDetailOrder;
     private List<Order> listOrder;
     private Order orderInfo;
-    private MainActivity home;
+    private Admin home;
 
-    public void setData(List<DetailOrder> listDetailOrder, List<Order> listOrder, MainActivity home) {
+    public void setData(List<DetailOrder> listDetailOrder, List<Order> listOrder, Admin home) {
         this.listDetailOrder = listDetailOrder;
         this.listOrder = listOrder;
         this.home = home;

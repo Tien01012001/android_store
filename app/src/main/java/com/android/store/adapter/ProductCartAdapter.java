@@ -1,12 +1,10 @@
 package com.android.store.adapter;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.android.store.MainActivity;
 import com.android.store.R;
 import com.android.store.fragment.CartFragment;
-import com.android.store.fragment.ProductFragment;
 import com.android.store.model.Product;
 import com.bumptech.glide.Glide;
 
@@ -46,10 +43,8 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductCartViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ProductCartViewHolder holder, int position) {
         Product product = listProductCart.get(position);
-        int numProduct = product.getNumProduct();
-        final int level = numProduct;
         if (product == null){
             return;
         }
@@ -59,9 +54,8 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
             holder.tvPriceProductCart.setText( formatPrice.format(product.getProductPrice())+ " VNĐ");
 
             int count = product.getNumProduct();
-            if(count != 0) {
+            if(count != 0){
                 holder.tvCountCart.setText(String.valueOf(count));
-
             }else {
                 holder.tvCountCart.setText(String.valueOf(1));
             }
@@ -86,11 +80,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
                 @Override
                 public void onClick(View v) {
                     countProduct = Integer.parseInt(holder.tvCountCart.getText().toString());
-                    System.out.println(countProduct);
-                    System.out.println(numProduct);
-
-
-                    if (countProduct < level) {
+                    if (countProduct < 10){
                         countProduct++;
                         home.setCountProductInCart(home.getCountProduct() + 1);
                         home.setCountForProduct(position,countProduct);
@@ -98,8 +88,6 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
                         holder.tvCountCart.setText(String.valueOf(countProduct));
                         cartFragment.setTotalPrice(1,1,product.getProductPrice());
                         notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(v.getContext(), "Khong du so luong san pham",Toast.LENGTH_LONG).show();
                     }
                 }
             });

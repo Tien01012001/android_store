@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.store.Admin;
 import com.android.store.MainActivity;
 import com.android.store.R;
 import com.android.store.adapter.HistoryProductAdapter;
@@ -30,7 +31,7 @@ import java.util.List;
 
 public class HistoryFragment extends Fragment {
 
-    private MainActivity home;
+    private Admin home;
     private List<Order> listOrder;
     private List<DetailOrder> listDetailOrder;
 
@@ -69,7 +70,7 @@ public class HistoryFragment extends Fragment {
         listOrder = new ArrayList<>();
         listDetailOrder = new ArrayList<>();
 
-        home = (MainActivity) getActivity();
+        home = (Admin) getActivity();
 
         historyProductAdapter = new HistoryProductAdapter();
 
@@ -83,6 +84,7 @@ public class HistoryFragment extends Fragment {
                 findOrder();
             }
         });
+        loadOrder();
     }
 
     private void setDataHistoryProductAdapter(){
@@ -127,6 +129,42 @@ public class HistoryFragment extends Fragment {
                 Toast.makeText(getContext(),"Không lấy được thông tin đơn hàng từ firebase",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void loadOrder(){
+
+        listOrder.clear();
+        listDetailOrder.clear();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("DBOrder");
+
+        myRef
+                .addValueEventListener(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        historyProductAdapter.notifyDataSetChanged();
+                        for (DataSnapshot dataOrder : snapshot.getChildren()){
+                            Order order = dataOrder.getValue(Order.class);
+                            order.setOrderNo(dataOrder.getKey());
+                            listOrder.add(order);
+                        }
+
+                        if (listOrder.size() > 0){
+                            // Lấy thông tin detail order
+                            findDetailOrder(myRef);
+                        }
+                        else {
+                            Toast.makeText(getContext(),"Không tìm thấy lịch sử đặt hàng",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(),"Không lấy được thông tin đơn hàng từ firebase",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void findDetailOrder( DatabaseReference myRef){

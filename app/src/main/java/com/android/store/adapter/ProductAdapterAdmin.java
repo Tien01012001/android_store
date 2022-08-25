@@ -2,6 +2,7 @@ package com.android.store.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.store.Admin;
+import com.android.store.AdminProduct;
 import com.android.store.R;
+import com.android.store.fragment.ProductFragmentAdmin;
 import com.android.store.model.Product;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
@@ -32,7 +36,7 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
     private List<Product> mListProduct;
     private DecimalFormat formatPrice = new DecimalFormat("###,###,###");
     private Admin home;
-
+    private FragmentTransaction fragmentTransaction;
 
     /*public ProductAdapterAdmin(List<Product> mListProduct) {
         this.mListProduct = mListProduct;
@@ -131,7 +135,6 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 dataSnapshot.getRef().removeValue();
-
             }
 
             @Override

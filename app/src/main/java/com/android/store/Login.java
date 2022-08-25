@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +14,7 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity {
 
     Button btn_ok, btn_cancel;
-    TextView btn_forgot, messLogin;
+    TextView btn_forgot;
     EditText txt_uname, txt_pwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,24 +25,6 @@ public class Login extends AppCompatActivity {
         btn_forgot = findViewById(R.id.btn_forgot);
         txt_uname=(EditText)findViewById(R.id.txt_uname);
         txt_pwd=(EditText)findViewById(R.id.txt_pwd);
-        messLogin = findViewById(R.id.message_login);
-
-        txt_uname.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                messLogin.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
     }
 
